@@ -302,7 +302,7 @@ builder.add_edge("end", END)
 memory = InMemorySaver()
 
 # Add
-RUN_LOCAL = False
+RUN_LOCAL = True
 if RUN_LOCAL:
     graph = builder.compile()
 else:

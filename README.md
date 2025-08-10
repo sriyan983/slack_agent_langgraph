@@ -15,6 +15,7 @@ The goal is to:
 ## 🧩 Architecture & Flow
 
 **Project Structure**  
+```
 slack_agents/
   agent_graph/           # LangGraph workflows
   api/                   # API endpoints
@@ -26,23 +27,27 @@ slack_agents/
   run_cron.sh            # CRON control script
   requirements.txt
   .env                   # Environment variables
+```
 
 **Graph Workflow**  
-<placeholder – paste your LangGraph here>
+![LangGraph Studio](images/langgraph_studio.png)
 
 - **Ignore** → No further action
 - **Notify** → LLM generates a response using historical context
 - **Respond** → Message enters HITL state, waits for human feedback via the dashboard
 
 **Dashboard (Streamlit)**  
-<placeholder – paste your dashboard screenshot here>
+![Dashboard](images/dashboard.png)
 
 - Displays all processed messages
 - Filters to **Respond** type for HITL feedback
 - Allows entering a reply which is then sent back to Slack
 
 **HITL Interaction Example**  
-<placeholder – paste HITL flow image here>
+![Slack Agent in Action](images/slack_agent_in_action.png)
+
+**API in Action**  
+![API in Action](images/api_in_action.png)
 
 **State Management**
 - Uses **LangGraph checkpoints** to store workflow state
@@ -75,17 +80,16 @@ slack_agents/
 4. Install App to Workspace → copy **Bot User OAuth Token** (xoxb-…)
 5. Invite bot to desired channels:
 
-
 ---
 
 ### 2️⃣ Event Subscriptions
 Even in Socket Mode, you must enable this:
 - Go to **Event Subscriptions** → Enable
 - Subscribe to bot events:
-- `message.channels`
-- `message.groups`
-- `message.im`
-- `message.mpim`
+  - `message.channels`
+  - `message.groups`
+  - `message.im`
+  - `message.mpim`
 - Save changes
 
 ---
@@ -111,8 +115,11 @@ You can use **Docker** for each module:
 python3 -m venv langgraph_env
 source langgraph_env/bin/activate
 pip install -r requirements.txt
+```
+
 (See requirements.txt for all packages.)
 
+```bash
 # Start the cron
 ./run_cron.sh start
 
@@ -127,15 +134,17 @@ pip install -r requirements.txt
 
 # Restart the cron
 ./run_cron.sh restart
+```
 
-Note:
-Ensure message-processor-cron.service has the correct absolute paths.
-Logs are available at:
-    message_processor_cron.log
+**Note:**
+- Ensure `message-processor-cron.service` has the correct absolute paths.
+- Logs are available at: `message_processor_cron.log`
 
-Setup Slack app and .env with:
-    SLACK_BOT_TOKEN=xoxb-...
-    SLACK_APP_TOKEN=xapp-...
-    DATABASE_URL=postgresql://user:pass@host/db
+**Setup Slack app and .env with:**
+```
+SLACK_BOT_TOKEN=xoxb-...
+SLACK_APP_TOKEN=xapp-...
+DATABASE_URL=postgresql://user:pass@host/db
+```
 
 
