@@ -1,0 +1,28 @@
+[Unit]
+Description=Message Processor Cron Service
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=your_username
+WorkingDirectory=~/mnt/narayan/Code/ambient_agents/mis_agents
+Environment=PATH=~/mnt/narayan/Code/ambient_agents/mis_agents/langgraph_env/bin
+ExecStart=~/mnt/narayan/Code/ambient_agents/mis_agents/langgraph_env/bin/python ~/mnt/narayan/Code/ambient_agents/mis_agents/cron_message_processor.py --interval 30
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Logging
+LogLevel=info
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=~/mnt/narayan/Code/ambient_agents/mis_agents
+
+[Install]
+WantedBy=multi-user.target 
